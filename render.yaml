@@ -1,0 +1,38 @@
+services:
+  - type: web
+    name: digital-canteen-demo
+    runtime: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn --bind 0.0.0.0:$PORT combined_wsgi:app
+    healthCheckPath: /health
+    envVars:
+      - key: FLASK_ENV
+        value: production
+      - key: FLASK_DEBUG
+        value: "false"
+      - key: SESSION_COOKIE_SECURE
+        value: "true"
+      - key: SESSION_LIFETIME_SECONDS
+        value: "7200"
+      - key: DB_PORT
+        value: "3306"
+      - key: DB_SSL_MODE
+        value: REQUIRED
+      - key: FLASK_SECRET_KEY
+        sync: false
+      - key: DB_HOST
+        sync: false
+      - key: DB_USER
+        sync: false
+      - key: DB_PASSWORD
+        sync: false
+      - key: DB_NAME
+        sync: false
+      - key: DB_SSL_CA
+        sync: false
+      - key: ADMIN_USERNAME
+        sync: false
+      - key: ADMIN_PASSWORD
+        sync: false
+      - key: WALLET_PIN
+        sync: false
